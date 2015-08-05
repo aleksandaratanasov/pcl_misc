@@ -1,0 +1,4 @@
+<launch>
+  <param name="pcdFile" type="string" value="$(find pcl_misc)/resources/4.pcd" />
+  <node name="cloud_publisher" pkg="pcl_misc" type="cloud_publisher" />
+</launch>
