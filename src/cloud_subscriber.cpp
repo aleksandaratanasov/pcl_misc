@@ -47,8 +47,15 @@ public:
     sor.setMeanK(50);
     sor.setStddevMulThresh(1.0);
     ROS_INFO("Filtering cloud data");
+    // Remove the outliers
     sor.filter(*pclCloud_filtered);
     ROS_INFO_STREAM("Filtering completed. a cloud message with " << (msg->height*msg->width - pclCloud_filtered->height*pclCloud_filtered->width) << " points as outliers leaving " << pclCloud_filtered->height * pclCloud_filtered->width << " in total");
+
+    // Negating an applying filtering returns the outliers
+    //sor.setNegative(true);
+    //sor.filter(*pclCloud_filtered);
+
+    pcl::io::savePCDFileBinaryCompressed("inliers.pcd", *pclCloud_filtered);
   }
 };
 
