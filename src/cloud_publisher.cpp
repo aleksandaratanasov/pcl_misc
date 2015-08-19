@@ -7,7 +7,7 @@
 #include <ros/publisher.h>
 #include <string>
 
-class PMDCloudPublisher
+class CloudPublisher
 {
 protected:
   std::string tf_frame;
@@ -19,7 +19,7 @@ public:
   std::string file_name, cloud_topic;
   pcl_ros::Publisher<sensor_msgs::PointCloud2> pub;
 
-  PMDCloudPublisher()
+  CloudPublisher()
     : tf_frame("/base_link"),
       private_nh("~")
   {
@@ -41,7 +41,7 @@ public:
   {
     int nr_points = cloud.width * cloud.height;
     std::string fields_list = pcl::getFieldsList(cloud);
-    ros::Rate r(40);
+    ros::Rate r(ros::Duration(1,0)); //1s tact
 
     while(nh.ok ())
     {
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
   ros::init (argc, argv, "cloud_publisher");
   ros::NodeHandle nh;
 
-  PMDCloudPublisher c;
+  CloudPublisher c;
   nh.getParam("pcdFile", c.file_name);
 
   if (c.start () == -1)

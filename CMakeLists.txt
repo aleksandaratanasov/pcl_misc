@@ -29,12 +29,12 @@ add_definitions(${PCL_DEFINITIONS})
 
 
 add_executable(cloud_publisher src/cloud_publisher.cpp)
-target_link_libraries(cloud_publisher
- ${catkin_LIBRARIES}
-)
-target_link_libraries(cloud_publisher
- ${PCL_LIBRARIES}
-)
+target_link_libraries(cloud_publisher ${catkin_LIBRARIES})
+target_link_libraries(cloud_publisher pcl_common pcl_io) #${PCL_LIBRARIES})
+
+add_executable(cloud_subscriber src/cloud_subscriber.cpp)
+target_link_libraries(cloud_subscriber ${catkin_LIBRARIES})
+target_link_libraries(cloud_subscriber pcl_common pcl_io pcl_filters) #${PCL_LIBRARIES})
 
 #############
 ## Testing ##
